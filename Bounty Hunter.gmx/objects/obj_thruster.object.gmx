@@ -3,9 +3,9 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-100</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_ship_part</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,32 +25,29 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>Sname = part_system_create();
-trail = part_type_create();
-part_type_shape(trail, pt_shape_flare);
-part_type_scale(trail, 1, 1);
-part_type_size(trail, 0.20, 0.50, 0, 0);
-part_type_color2(trail, c_white, c_aqua);
-part_type_alpha2(trail, 1, 0);
-part_type_speed(trail, 2, 5, -0.20, 0);
-part_type_direction(trail, (obj_player_cockpit.phy_rotation * -1) - 90, (obj_player_cockpit.phy_rotation * -1) - 90, 0, 0);
-part_type_gravity(trail, 0, 270);
-part_type_orientation(trail, 0, 359, 0, 0, 0);
-part_type_blend(trail, 1);
-part_type_life(trail, 8, 30);
+            <string>event_inherited();
 
-direction = obj_player_cockpit.phy_rotation;
-speed = 15 + random(5);
-gravity = 0;
-gravity_direction = 270;
-alarm[0] = 1;
-alarm[1] = room_speed;
+hp = 500;
+max_hp = 500;
+
+image_speed = 0;
+image_index = 0;
+
+power_drain = 1;
+
+snd_temp = false;
+
+thrust = 50;
+thrusting = false;
+
+key_myKey[0] = vk_up;
+key_myKey[1] = vk_down;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="2" enumb="1">
+    <event eventtype="1" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -67,21 +64,15 @@ alarm[1] = room_speed;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if part_particles_count(Sname) &gt; 0
-{
-alarm[2] = 1;
-}
-else
-{
-part_type_destroy(trail);
-part_system_destroy(Sname);
-}
+            <string>event_inherited();
+
+audio_stop_sound(snd_temp);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="2" enumb="0">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -98,7 +89,74 @@ part_system_destroy(Sname);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>part_particles_create(Sname, x, y, trail, 1);
+            <string>event_inherited();
+
+var ship_power = global.ships[ship, 2];
+
+if thrusting {
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="5" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if keyboard_check(key_myKey[0])
+{
+    scr_thrust(-1);
+}
+
+if keyboard_check(key_myKey[1])
+{
+    scr_thrust(1);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if keyboard_check(keyboard_check(key_myKey[0]))
+{
+    scr_stop_thrust();
+}
+
+if keyboard_check(keyboard_check(key_myKey[1]))
+{
+    scr_stop_thrust();
+}
 </string>
           </argument>
         </arguments>
@@ -107,14 +165,21 @@ part_system_destroy(Sname);
   </events>
   <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
-  <PhysicsObjectShape>0</PhysicsObjectShape>
-  <PhysicsObjectDensity>0.5</PhysicsObjectDensity>
-  <PhysicsObjectRestitution>0.100000001490116</PhysicsObjectRestitution>
+  <PhysicsObjectShape>2</PhysicsObjectShape>
+  <PhysicsObjectDensity>0.150000005960464</PhysicsObjectDensity>
+  <PhysicsObjectRestitution>0.5</PhysicsObjectRestitution>
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
   <PhysicsObjectLinearDamping>0.100000001490116</PhysicsObjectLinearDamping>
-  <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
+  <PhysicsObjectAngularDamping>0.400000005960464</PhysicsObjectAngularDamping>
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints/>
+  <PhysicsShapePoints>
+    <point>0,0</point>
+    <point>32,0</point>
+    <point>32,16</point>
+    <point>24,32</point>
+    <point>8,32</point>
+    <point>0,16</point>
+  </PhysicsShapePoints>
 </object>

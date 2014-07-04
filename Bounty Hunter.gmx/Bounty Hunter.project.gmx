@@ -137,14 +137,17 @@
         <script>scripts\scr_check_player_connected.gml</script>
         <script>scripts\scr_check_connected.gml</script>
         <scripts name="grp_cannons">
+          <script>scripts\scr_create_bullet.gml</script>
           <script>scripts\scr_fire_cannon.gml</script>
-          <script>scripts\scr_fire_cannon_test.gml</script>
         </scripts>
         <scripts name="grp_missle_launchers">
-          <script>scripts\scr_fire_missle.gml</script>
+          <script>scripts\scr_create_missle.gml</script>
+          <script>scripts\scr_fire_launcher.gml</script>
         </scripts>
         <scripts name="grp_lasers">
           <script>scripts\draw_laser.gml</script>
+          <script>scripts\scr_fire_laser.gml</script>
+          <script>scripts\scr_stop_laser.gml</script>
         </scripts>
         <scripts name="grp_cockpits">
           <script>scripts\scr_turn.gml</script>
@@ -184,56 +187,55 @@
       </objects>
       <objects name="grp_asteroids">
         <object>objects\obj_Asteroid_Parent</object>
-        <object>objects\obj_Asteroid_Parent_backup</object>
         <object>objects\obj_Asteroid_1</object>
         <object>objects\obj_Asteroid_2</object>
         <object>objects\obj_Asteroid_3</object>
         <object>objects\obj_Asteroid_4</object>
       </objects>
-      <objects name="grp_player_parts">
-        <object>objects\obj_player_part</object>
-        <object>objects\obj_player_cockpit</object>
+      <objects name="grp_ship_parts">
+        <object>objects\obj_ship_part</object>
+        <object>objects\obj_cockpit</object>
         <objects name="grp_cannons">
           <object>objects\obj_cannon</object>
-          <object>objects\obj_player_cannon_1</object>
-          <object>objects\obj_player_cannon_2</object>
-          <object>objects\obj_player_cannon_3</object>
+          <object>objects\obj_cannon_1</object>
+          <object>objects\obj_cannon_2</object>
+          <object>objects\obj_cannon_3</object>
         </objects>
         <objects name="grp_thrusters">
-          <object>objects\obj_player_thruster</object>
-          <object>objects\obj_player_thruster_1</object>
-          <object>objects\obj_player_thruster_2</object>
-          <object>objects\obj_player_thruster_3</object>
+          <object>objects\obj_thruster</object>
+          <object>objects\obj_thruster_1</object>
+          <object>objects\obj_thruster_2</object>
+          <object>objects\obj_thruster_3</object>
         </objects>
         <objects name="grp_missle_launchers">
           <object>objects\obj_missle_launcher</object>
-          <object>objects\obj_player_missle_launcher_1</object>
-          <object>objects\obj_player_missle_launcher_2</object>
-          <object>objects\obj_player_missle_launcher_3</object>
+          <object>objects\obj_missle_launcher_1</object>
+          <object>objects\obj_missle_launcher_2</object>
+          <object>objects\obj_missle_launcher_3</object>
         </objects>
         <objects name="grp_lasers">
           <object>objects\obj_laser</object>
-          <object>objects\obj_player_laser_1</object>
-          <object>objects\obj_player_laser_2</object>
-          <object>objects\obj_player_laser_3</object>
+          <object>objects\obj_laser_1</object>
+          <object>objects\obj_laser_2</object>
+          <object>objects\obj_laser_3</object>
         </objects>
         <objects name="grp_reactors">
-          <object>objects\obj_player_reactor</object>
-          <object>objects\obj_player_reactor_1</object>
-          <object>objects\obj_player_reactor_2</object>
-          <object>objects\obj_player_reactor_3</object>
+          <object>objects\obj_reactor</object>
+          <object>objects\obj_reactor_1</object>
+          <object>objects\obj_reactor_2</object>
+          <object>objects\obj_reactor_3</object>
         </objects>
         <objects name="grp_ammo">
-          <object>objects\obj_player_ammo</object>
-          <object>objects\obj_player_ammo_1</object>
-          <object>objects\obj_player_ammo_2</object>
-          <object>objects\obj_player_ammo_3</object>
+          <object>objects\obj_ammo</object>
+          <object>objects\obj_ammo_1</object>
+          <object>objects\obj_ammo_2</object>
+          <object>objects\obj_ammo_3</object>
         </objects>
       </objects>
       <object>objects\obj_phy_object</object>
     </objects>
     <objects name="grp_effects">
-      <object>objects\obj_thruster</object>
+      <object>objects\obj_thruster_effect</object>
       <object>objects\obj_missle_thruster</object>
     </objects>
     <objects name="grp_controls">

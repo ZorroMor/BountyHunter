@@ -1,3 +1,5 @@
+//***NEEDS TO BE UPDATED TO ACCOMADATE THE AI***
+
 //snap all ship parts together (check down and to the right)
 //only running to the 14th row and column since they should already be snapped
 
@@ -15,10 +17,12 @@ for (i = 0; i < 14; i++)
             inst_x = x_offset + (i * 32) + (i*1);
             inst_y = y_offset + (j * 32) + (j*1);
             
+            //if one exists, snap current part to the one below it
             if (global.player_part[i,j+1] != false) 
             {
                 physics_joint_prismatic_create(global.player_part[i,j], global.player_part[i,j+1], inst_x, inst_y + 16, 0, 1, 1, 1, true, 10000, 0, true, false);
             }
+            //if one exists, snap current part to the one to it's right
             if (global.player_part[i+1,j] != false)
             {
                 physics_joint_prismatic_create(global.player_part[i,j], global.player_part[i+1,j], inst_x + 16, inst_y, 1, 0, 1, 1, true, 10000, 0, true, false);

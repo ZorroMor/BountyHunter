@@ -397,8 +397,10 @@ switch (type)
         //toggle the button
         image_index = 5;
         
+        //lets the FIND?? know the ship needs to be updated
         global.update_ship = true;
         
+        //updates the array storing the player's settings with the new settings from the grid
         for (i = 0; i &lt; 15; i++)
         {
             for (j = 0; j &lt; 15; j++)
@@ -408,7 +410,7 @@ switch (type)
                 global.player_controls[i,j] = global.part_grid[i,j].controls;
             }
         }
-        scr_pause();
+        scr_pause(false);
         break;
 }
 </string>

@@ -1,3 +1,4 @@
+//remove a part from the grid
 var temp_i, temp_j;
 
 if (global.grid_selected.part != "none")

@@ -39,7 +39,7 @@ cooldown_time = 45;
         </arguments>
       </action>
     </event>
-    <event eventtype="5" enumb="32">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -71,7 +71,7 @@ if firing
     temp_x = center_x + (((sprite_height / 2) + 20) * cos((phy_rotation + 270) * (pi / 180)));
     temp_y = center_y + (((sprite_height / 2) + 20) * sin((phy_rotation + 270) * (pi / 180)));
     
-    scr_fire_missle(temp_x, temp_y, obj_missle_1, 500);
+    scr_create_missle(temp_x, temp_y, obj_missle_1, 500);
     
     //launcher 2
     center_x = x + ((sprite_height / 5) * cos((phy_rotation + 180) * (pi / 180)));
@@ -80,7 +80,7 @@ if firing
     temp_x = center_x + (((sprite_height / 2) + 20) * cos((phy_rotation + 270) * (pi / 180)));
     temp_y = center_y + (((sprite_height / 2) + 20) * sin((phy_rotation + 270) * (pi / 180)));
     
-    scr_fire_missle(temp_x, temp_y, obj_missle_1, 500);
+    scr_create_missle(temp_x, temp_y, obj_missle_1, 500);
 }
 </string>
           </argument>

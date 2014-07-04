@@ -1,4 +1,4 @@
-if (obj_game_runner.paused = false)
+if (argument0)
 {
     obj_game_runner.paused = true;
     

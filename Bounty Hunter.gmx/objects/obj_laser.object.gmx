@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>obj_player_part</parentName>
+  <parentName>obj_ship_part</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -52,7 +52,7 @@ power_drain = 1;
 cooldown_time = 0;
 firing_time = 0;
 
-key_myKey = vk_space;
+key_myKey[0] = vk_space;
 </string>
           </argument>
         </arguments>
@@ -179,9 +179,6 @@ can_shoot = true;
     
     var obj_collided;
     obj_collided = draw_laser(temp_x, temp_y, (phy_rotation * -1) + 90, laser_max, test_objs, 1, 10);
-    
-//    if (obj_collided)
-//        global.test1 = object_get_name(obj_collided) + " " + object_get_name(obj_phy_object);
         
     // damage target
     if ((collision_line(temp_x, temp_y, xx, yy, obj_phy_object, false, true)) || (collision_line(temp_x, temp_y, xx, yy, obj_station, true, true)))
@@ -250,20 +247,9 @@ can_shoot = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.test1 = "test";
-
-if keyboard_check_pressed(key_myKey)
+            <string>if keyboard_check(key_myKey[0])
 {
-    image_index = 0;
-    laser_firing = false;
-    hitting_target = false;
-    
-    if (snd_temp != false)
-        audio_stop_sound(snd_temp);
-    if (snd_hit != false)
-        audio_stop_sound(snd_hit);
-        
-    global.test1 = "noone";
+    scr_fire_laser();
 }
 </string>
           </argument>
@@ -289,11 +275,11 @@ if keyboard_check_pressed(key_myKey)
             <kind>1</kind>
             <string>draw_self();
 
-var center_x = temp_x + ((1.5 * damage / 4) * cos((phy_rotation + 180) * (pi / 180)));;
-var center_y = temp_y + ((0.5 * damage / 4) * sin((phy_rotation + 180) * (pi / 180)));;
-
 if (laser_firing)
 {
+    var center_x = temp_x + ((1.5 * damage / 4) * cos((phy_rotation + 180) * (pi / 180)));;
+    var center_y = temp_y + ((0.5 * damage / 4) * sin((phy_rotation + 180) * (pi / 180)));;
+    
     draw_sprite_ext(spr_laser_beam, 0, center_x, center_y, point_distance(center_x,center_y,xx,yy)/4, (1.5 * damage)/4, (phy_rotation * -1) + 90 , c_red, .9);
     draw_sprite_ext(spr_laser_beam, 0, center_x, center_y, point_distance(center_x,center_y,xx,yy)/4, (0.5 * damage)/4, (phy_rotation * -1) + 90 , c_white, .9);
 }
@@ -319,18 +305,9 @@ if (laser_firing)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if keyboard_check_released(key_myKey)
+            <string>if keyboard_check(key_myKey[0])
 {
-    image_index = 0;
-    laser_firing = false;
-    hitting_target = false;
-    
-    if (snd_temp != false)
-        audio_stop_sound(snd_temp);
-    if (snd_hit != false)
-        audio_stop_sound(snd_hit);
-        
-    global.test1 = "noone";
+    scr_stop_laser();
 }
 </string>
           </argument>

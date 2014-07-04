@@ -1,3 +1,5 @@
+//Loads the current ship configuration (before any damage) into the ship builder
+        //  (any new part type also needs to be added to obj_pause_runner.Create,scr_update_ship, and scr_place)
 if (global.part_grid[argument0,argument1].part != "none")
 {
     var temp_spr;

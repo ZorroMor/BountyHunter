@@ -8,9 +8,9 @@ if phy_position_y < (0 - sprite_height) change_y += room_height + (sprite_height
 if phy_position_y > (room_height + sprite_height) change_y -= room_height + sprite_height;
 
 var i;
-for (i = 0; i < instance_number(obj_Player); i++)
+for (i = 0; i < instance_number(obj_player); i++)
 {
-    temp_player = instance_find(obj_Player, i);
+    temp_player = instance_find(obj_player, i);
     temp_player.phy_position_x = change_x;
     temp_player.phy_position_y = change_y;
 }

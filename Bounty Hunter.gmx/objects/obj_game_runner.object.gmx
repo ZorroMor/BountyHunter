@@ -36,6 +36,7 @@ randomize();
 audio_play_music(snd_background, true);
 
 paused = false;
+paused_first = false;
 
 for (i = 0; i &lt; 15; i++)
 {
@@ -54,11 +55,13 @@ global.ships[0,2] = 0; //Power
 global.ships[0,3] = 0; //Ammo
 
 //place cockpit
-global.player_part[7,7] = instance_create(200, 200, obj_player_cockpit);
+global.player_part[7,7] = instance_create(200, 200, obj_cockpit);
 global.player_part[7,7].grid_i = 7; //indicates where this part is located in the ship's grid
 global.player_part[7,7].grid_j = 7; //indicates where this part is located in the ship's grid
 global.player_part[7,7].ship = 0; //indicates the ship which this part is assigned to
+global.player_part[7,7].player = true; //indicates the part is controlled by the player
 global.player_text[7,7] = "cockpit";
+
 
 //place player
 instance_create(200, 200, obj_player);
@@ -103,10 +106,11 @@ physics_fixture_delete(fix);
             <kind>1</kind>
             <string>if (os_is_paused())
 {
-    scr_pause();
+    if (!paused)
+        scr_pause(true);
 }
-paused_first = true;
-if (paused = false)
+
+if (!paused)
 {
     if (paused_first)
     {
@@ -116,38 +120,43 @@ if (paused = false)
         
         audio_resume_music();
         
+        //if the ship configuration was updated while paused, update the existing ship
         if (global.update_ship)
         {
             global.update_ship = false;
             
-            scr_update_ship();
+            //pass in the player's ship's index - 0
+            scr_update_ship(0);
         }
     }
     
+    //if game is running, center view on player
     view_xview[0] = obj_player.x - (window_get_width() / 2);
     view_yview[0] = obj_player.y - (window_get_height() / 2);
+    //keep view within the confines of the room
     if view_xview[0] &lt; 0 view_xview[0] = 0;
     if view_yview[0] &lt; 0 view_yview[0] = 0;
     if view_xview[0] &gt; (room_width - view_wport[0]) view_xview[0] = (room_width - view_wport[0]);
     if view_yview[0] &gt; (room_height - view_hport[0]) view_yview[0] = (room_height - view_hport[0]);
 }
-else
-{
-    paused_first = true;
-}
 
+//set main view port to the screen's dimensions
 view_wport[0] = window_get_width();
 view_hport[0] = window_get_height();
+//do not stretch the view port if the room is smaller than the screen
 if view_wport[0] &gt; room_width view_wport[0] = room_width;
 if view_hport[0] &gt; room_height view_hport[0] = room_height;
 
+//display mini map if the game is running
 if (room = rm_level_1)
 {
 view_wview[0] = window_get_width();
 view_hview[0] = window_get_height();
 
+//set mini map to 1/10 the screen size
 view_wport[1] = window_get_width() * 0.1;
 view_hport[1] = window_get_width() * 0.1;
+//set mini map at the bottom of the screen
 view_yport[1] = window_get_height() - view_hport[1];
 }
 else
@@ -191,7 +200,13 @@ else
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_pause();
+            <string>if (paused)
+    scr_pause(false);
+else
+{
+    scr_pause(true);
+    paused_first = true;
+}
 </string>
           </argument>
         </arguments>
@@ -282,7 +297,7 @@ else
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_text(view_xview[0] + (view_wport[0] / 2), view_yview[0] + 50, global.test1);
+            <string>//draw_text(view_xview[0] + (view_wport[0] / 2), view_yview[0] + 50, global.test1);
 //draw_text(view_xview[0] + (view_wport[0] / 2), view_yview[0] + 75, global.test2);
 //draw_text(view_xview[0] + (view_wport[0] / 2), view_yview[0] + 100, global.test3);
 

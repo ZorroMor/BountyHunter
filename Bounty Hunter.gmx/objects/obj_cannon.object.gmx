@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>obj_player_part</parentName>
+  <parentName>obj_ship_part</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -41,6 +41,8 @@ ammo_drain = 1;
 ammo_boost = .1;
 
 cooldown_time = 0;
+
+key_myKey[0] = vk_space;
 </string>
           </argument>
         </arguments>
@@ -133,7 +135,7 @@ if connected &amp;&amp; (ship_power &gt; 0) &amp;&amp; (ship_ammo &lt; 100)
         </arguments>
       </action>
     </event>
-    <event eventtype="5" enumb="32">
+    <event eventtype="5" enumb="1">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -150,28 +152,9 @@ if connected &amp;&amp; (ship_power &gt; 0) &amp;&amp; (ship_ammo &lt; 100)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var ship_power = global.ships[ship, 2];
-var ship_ammo = global.ships[ship, 3];
-
-if connected &amp;&amp; (ship_power &gt; 0)  &amp;&amp; (ship_ammo &gt; 0) &amp;&amp; can_shoot
+            <string>if keyboard_check(key_myKey[0])
 {
-    can_shoot = false;
-    firing = true;
-    
-    image_index = 1;
-    audio_play_sound(snd_shoot, 1, false);
-    
-    // subtract from ship's ammo
-    global.ships[ship, 3] -= ammo_drain;
-    
-    // subtract from ship's power
-    if ship_power &gt;= power_drain
-        global.ships[ship, 2] -= power_drain;
-    else
-        global.ships[ship, 2] = 0;
-
-    alarm[0] = cooldown_time;
-    alarm[1]=2;
+    scr_fire_cannon();
 }
 </string>
           </argument>
